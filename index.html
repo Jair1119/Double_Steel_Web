@@ -571,6 +571,16 @@
                 display: block;
             }
         }
+
+/* Ocultar header con animación */
+header {
+    transition: transform 0.3s ease-in-out;
+}
+
+header.hide {
+    transform: translateY(-100%);
+}
+
     </style>
 </head>
 <body>
@@ -1691,4 +1701,23 @@
         const text = `Hola, soy ${name}, teléfono: ${phone}. Solicito cotización de: ${product}. Detalles: ${msg}`;
         window.open(`https://wa.me/528991948477?text=${encodeURIComponent(text)}`, '_blank');
     };
+
+    // Ocultar header al hacer scroll hacia abajo
+let lastScrollTop = 0;
+const header = document.getElementById('header');
+const scrollThreshold = 50;
+
+window.addEventListener('scroll', function() {
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (Math.abs(currentScroll - lastScrollTop) > scrollThreshold) {
+        if (currentScroll > lastScrollTop) {
+            header.classList.add('hide');
+        } else {
+            header.classList.remove('hide');
+        }
+        lastScrollTop = currentScroll;
+    }
+});
+
 </script>
