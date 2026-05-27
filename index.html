@@ -64,18 +64,18 @@
         }
 
         .btn {
-            display: inline-block;
-            padding: 12px 28px;
-            border-radius: 4px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-            border: none;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    display: inline-block;
+    padding: 15px 35px;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    border: none;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
         .btn-primary {
             background-color: var(--primary);
@@ -101,14 +101,14 @@
 
         /* --- HEADER --- */
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 20px 0;
-            transition: var(--transition);
-        }
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 30px 0;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease, padding 0.3s ease;
+}
 
         header.scrolled {
             background-color: rgba(26, 26, 26, 0.95);
@@ -124,26 +124,26 @@
         }
 
         .logo img {
-            height: auto;
-            max-height: 120px; 
-            width: auto;
-        }
+    height: auto;
+    max-height: 150px;
+    width: auto;
+}
 
         .logo span {
             color: var(--primary);
         }
 
         .nav-menu {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
+    display: flex;
+    gap: 45px;
+    align-items: center;
+}
 
         .nav-link {
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
 
         .nav-link:hover {
             color: var(--primary);
@@ -573,6 +573,7 @@
         }
 
 /* Ocultar header con animación */
+/* Ocultar header al hacer scroll */
 header {
     transition: transform 0.3s ease-in-out;
 }
@@ -1703,6 +1704,8 @@ header.hide {
     };
 
     // Ocultar header al hacer scroll hacia abajo
+// Ocultar header al hacer scroll hacia abajo (no vuelve a aparecer)
+// Ocultar header al hacer scroll, mostrar solo cuando está en el top
 let lastScrollTop = 0;
 const header = document.getElementById('header');
 const scrollThreshold = 50;
@@ -1710,11 +1713,16 @@ const scrollThreshold = 50;
 window.addEventListener('scroll', function() {
     let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
     
+    // Si está en el top (inicio de la página), mostrar header
+    if (currentScroll === 0) {
+        header.classList.remove('hide');
+        return;
+    }
+    
     if (Math.abs(currentScroll - lastScrollTop) > scrollThreshold) {
         if (currentScroll > lastScrollTop) {
+            // Scroll hacia abajo → ocultar header
             header.classList.add('hide');
-        } else {
-            header.classList.remove('hide');
         }
         lastScrollTop = currentScroll;
     }
